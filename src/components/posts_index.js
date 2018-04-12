@@ -5,7 +5,7 @@ import { fetchPosts } from '../actions'
 
 class PostsIndex extends Component {
     // Fetch the data after a component rendered
-    // It's a asynchronous operation
+    // It's an asynchronous operation
     componentDidMount() {
         this.props.fetchPosts()
     }
