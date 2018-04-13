@@ -7,6 +7,8 @@ import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form'
 
 class PostsNew extends Component {
+    // field represent a single input or single piece of state that
+    // we are attempting to communicate to the user
     renderField(field) {
         return (
             <div className="form-group">
@@ -17,6 +19,8 @@ class PostsNew extends Component {
                     // pre-generated even handlers:
                     {...field.input}
                 />
+                { // error is going to be a string that we assigned inside our validate function
+                field.meta.error}
             </div>
         )
     }
@@ -30,8 +34,8 @@ class PostsNew extends Component {
                     component={this.renderField}
                 />
                 <Field
-                    label="Tags"
-                    name="tags"
+                    label="Categories"
+                    name="categories"
                     component={this.renderField}
                 />
                 <Field
@@ -44,7 +48,31 @@ class PostsNew extends Component {
     }
 }
 
+// Function called automatically when a user tries to submit something
+// This function needs to be passed to the redux form helper !!!
+// Values: all the values the user submitted
+// In order to communicate any errors we have to return an object:
+
+function validate(values) {
+    const errors= {}
+
+    // Validate the inputs:
+    if (!values.title) {
+        errors.title = "Please enter a title!"
+    }
+    if (!values.categories) {
+        errors.categories = "Enter some categories"
+    }
+    if (!values.content) {
+        errors.title = "Enter some content please"
+    }
+    // If errors is empty, the form is fine to submit
+    // If errors has *any* properties, redux form assumes form is invalid
+    return errors
+}
+
 // form property: just a unique name of a form, we can have many forms
 export default reduxForm({
+    validate: validate,
     form: 'PostsNewForm'
 })(PostsNew)
