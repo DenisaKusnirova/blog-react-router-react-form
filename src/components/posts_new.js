@@ -6,6 +6,8 @@ import React, { Component } from 'react'
 // to communicate directly from the component to the reducer
 import { Field, reduxForm } from 'redux-form'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { createPost } from '../actions'
 
 class PostsNew extends Component {
     // field represent a single input or single piece of state that
@@ -35,8 +37,9 @@ class PostsNew extends Component {
     }
 
     onSubmit(values) {
-        console.log(values)
-        
+        // call the action creator:
+        this.props.createPost(values)
+    
     } 
 
     render () {
@@ -93,4 +96,6 @@ function validate(values) {
 export default reduxForm({
     validate: validate,
     form: 'PostsNewForm'
-})(PostsNew)
+})(
+    connect(null, { createPost })(PostsNew)
+)
