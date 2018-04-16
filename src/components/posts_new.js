@@ -9,9 +9,15 @@ import { Field, reduxForm } from 'redux-form'
 class PostsNew extends Component {
     // field represent a single input or single piece of state that
     // we are attempting to communicate to the user
+
     renderField(field) {
+        
+        // destucturing meta, touched and error:
+        const { meta: { touched, error } } = field
+        const className = `form-group ${touched && error ? 'has-danger' : ''}`
+        
         return (
-            <div className="form-group">
+            <div className={className}>
                 <label>{field.label}</label>
                 <input
                     className="form-control"
@@ -19,8 +25,10 @@ class PostsNew extends Component {
                     // pre-generated even handlers:
                     {...field.input}
                 />
-                { // error is going to be a string that we assigned inside our validate function
-                field.meta.error}
+                <div className="text-help">
+                 { // error is going to be a string that we assigned inside our validate function
+                 touched ? error : ''}
+                </div>
             </div>
         )
     }
