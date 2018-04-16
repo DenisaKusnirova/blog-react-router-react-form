@@ -5,13 +5,14 @@ import React, { Component } from 'react'
 // helper from react-redux, it's going to allow redux form
 // to communicate directly from the component to the reducer
 import { Field, reduxForm } from 'redux-form'
+import { Link } from 'react-router-dom'
 
 class PostsNew extends Component {
     // field represent a single input or single piece of state that
     // we are attempting to communicate to the user
 
     renderField(field) {
-        
+
         // destucturing meta, touched and error:
         const { meta: { touched, error } } = field
         const className = `form-group ${touched && error ? 'has-danger' : ''}`
@@ -59,6 +60,7 @@ class PostsNew extends Component {
                     component={this.renderField}
                 />
                 <button type="submit" className="btn btn-primary">Submit</button>
+                <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
         )
     }
