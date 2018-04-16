@@ -38,7 +38,10 @@ class PostsNew extends Component {
 
     onSubmit(values) {
         // call the action creator:
-        this.props.createPost(values)
+        // programatic navigation back to the home page after a post has been created:
+        this.props.createPost(values, () => {
+            this.props.history.push('/')
+        })
     
     } 
 

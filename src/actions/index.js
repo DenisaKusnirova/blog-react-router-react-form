@@ -16,8 +16,9 @@ export function fetchPosts() {
 }
 
 // values- the blog post (title, categories, content)
-export function createPost(values) {
+export function createPost(values, callback) {
     const request = axios.post(`${ROOT_URL}/posts${API_KEY}`, values)
+        .then(() => callback())
 
     return {
         type: CREATE_POST,
